@@ -24,7 +24,7 @@ with DAG(
     default_args=default_args
 ) as dag:
     bash_task_one = BashOperator(
-        task_id="bash_task",
+        task_id="bash_task_one",
         bash_command='mkdir /opt/airflow/configfile'
     )
     bash_task = BashOperator(
