@@ -42,11 +42,14 @@ default_args = {
     'retries': 1,
     'retry_delay': timedelta(minutes=5),
 }   
-with DAG(
+dag = DAG(
     dag_id='rabbitmq_definition_export_write_database',
     schedule='@daily', 
     default_args=default_args
-) as dag: PythonOperator(
+) 
+defSc = PythonOperator(
         task_id="definition_writer",
-        python_callable=getDefinition(hostname,username,password)
+        python_callable=getDefinition(hostname,username,password),
+        dag=dag
     )
+defSc
