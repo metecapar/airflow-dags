@@ -18,6 +18,7 @@ default_args = {
 }
 def hello_world():
     print('mete ali emre airflow 101')
+    
 with DAG(
     dag_id='example_kubernetes_pod', 
     schedule='@once', 
@@ -31,6 +32,6 @@ with DAG(
         in_cluster=False,  # if set to true, will look in the cluster, if false, looks for file
         #config_file='/opt/airflow/configfile/config.json', 
         kubernetes_conn_id='matador',
-        is_delete_operator_pod=True,
+        is_delete_operator_pod=False,
         get_logs=True
     )
