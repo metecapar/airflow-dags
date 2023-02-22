@@ -29,6 +29,5 @@ with DAG(
     default_args=default_args
 ) as dag: PythonOperator(
         task_id="definition_writer",
-        python_callable=getDefinition(hostname,username,password),
-        dag=dag
+        python_callable=getDefinition(hostname,username,password)
     )
