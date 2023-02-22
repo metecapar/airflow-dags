@@ -34,7 +34,7 @@ with DAG(
         name="airflow-test-pod",
         task_id="task-one",
         in_cluster=False,  # if set to true, will look in the cluster, if false, looks for file
-        cluster_context="docker-desktop",  # is ignored when in_cluster is set to True
+        cluster_context="",  # is ignored when in_cluster is set to True
         config_file='/opt/airflow/configfile/config.json', 
         is_delete_operator_pod=True,
         get_logs=True,
