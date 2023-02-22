@@ -29,7 +29,6 @@ with DAG(
     default_args=default_args
 ) as dag: PythonOperator(
         task_id="definition_writer",
-        get_logs=True,
         python_callable=getDefinition(hostname,username,password),
         dag=dag
     )
