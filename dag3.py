@@ -19,7 +19,7 @@ def hello_world():
     print('mete ali emre airflow 101')
     
 with DAG(
-    dag_id='example_kubernetes_pod-dag3', 
+    dag_id='example_kubernetes_pod_dag3', 
     schedule='@once', 
     default_args=default_args
 ) as dag: KubernetesPodOperator(
