@@ -10,10 +10,15 @@ import requests,psycopg2
 db = Variable.get("db")
 dbPassword = Variable.get("pass")
 user = Variable.get("user")
+rabbitHost = Variable.get("rabbitHost")
 
-def getDefinition(host, user, password):
-    headers = urllib3.make_headers(basic_auth=user + ":" + password)
-    url = "http://"+host+":15672/api/definitions"
+hostname = rabbitHost
+username = "user"
+password = "password"
+
+def getDefinition():
+    headers = urllib3.make_headers(basic_auth=username + ":" + password)
+    url = "http://"+hostname+":15672/api/definitions"
     response = requests.request("GET", url, headers=headers)
     definition = response.text
     writeData(definition)
@@ -26,11 +31,7 @@ def writeData(definition):
     imlec.execute(insertQuery,value)
     conn.commit()
     
-rabbitHost = Variable.get("rabbitHost")
 
-hostname = rabbitHost
-username = "user"
-password = "password"
 
 
 default_args = {
@@ -49,7 +50,7 @@ dag = DAG(
 ) 
 defSc = PythonOperator(
         task_id="definition_writer",
-        python_callable=getDefinition(hostname,username,password),
+        python_callable=getDefinition,
         dag=dag
     )
 defSc
