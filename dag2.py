@@ -23,9 +23,13 @@ with DAG(
     schedule='@once', 
     default_args=default_args
 ) as dag:
+    bash_task_one = BashOperator(
+        task_id="bash_task",
+        bash_command='mkdir /opt/airflow/configfile'
+    )
     bash_task = BashOperator(
         task_id="bash_task",
-        bash_command='echo {{ var.value.matador }} > /opt/airflow/configfile/config.json'
+        bash_command='echo "{{ var.value.matador }}" > /opt/airflow/configfile/config.json'
     )
     task_one = KubernetesPodOperator(
         namespace='dev',
@@ -39,4 +43,4 @@ with DAG(
         is_delete_operator_pod=True,
         get_logs=True,
     )
-    bash_task >> task_one
+    bash_task_one>>bash_task >> task_one
