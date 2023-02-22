@@ -3,7 +3,16 @@ from airflow.utils.dates import days_ago
 from datetime import timedelta
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from python.rabbitmq.definitionExport import exportDef
+from python.rabbitmq.definitionExport import getDefinition
+from airflow.models import Variable
+
+
+rabbitHost = Variable.get("rabbitHost")
+
+hostname = rabbitHost
+username = "user"
+password = "password"
+
 
 default_args = {
     'owner': 'airflow',
@@ -24,6 +33,6 @@ with DAG(
         kubernetes_conn_id='staging',
         is_delete_operator_pod=False,
         get_logs=True,
-        python_callable=exportDef,
+        python_callable=getDefinition(hostname,username,password),
         dag=dag
     )

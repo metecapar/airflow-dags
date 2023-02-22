@@ -5,7 +5,6 @@ from airflow.models import Variable
 db = Variable.get("db")
 dbPassword = Variable.get("pass")
 user = Variable.get("user")
-rabbitHost = Variable.get("rabbitHost")
 
 def getDefinition(host, user, password):
     headers = urllib3.make_headers(basic_auth=user + ":" + password)
@@ -22,9 +21,5 @@ def writeData(definition):
     imlec.execute(insertQuery,value)
     conn.commit()
 
-hostname = rabbitHost
-username = "user"
-password = "password"
-getDefinition(hostname,username,password)
 
     
