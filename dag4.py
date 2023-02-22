@@ -28,10 +28,7 @@ with DAG(
     schedule='@daily', 
     default_args=default_args
 ) as dag: PythonOperator(
-        namespace='dev',
         task_id="definition_writer",
-        kubernetes_conn_id='staging',
-        is_delete_operator_pod=False,
         get_logs=True,
         python_callable=getDefinition(hostname,username,password),
         dag=dag
