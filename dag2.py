@@ -16,7 +16,8 @@ default_args = {
     'retries': 1,
     'retry_delay': timedelta(minutes=5),
 }
-
+def hello_world():
+    print('mete ali emre airflow 101')
 with DAG(
     dag_id='example_kubernetes_pod', 
     schedule='@once', 
