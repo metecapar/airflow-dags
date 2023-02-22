@@ -3,6 +3,8 @@ from airflow import DAG
 from airflow.configuration import conf
 from airflow.models import Variable
 from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import KubernetesPodOperator
+from airflow.operators.bash import BashOperator
+
 
 
 matador = Variable.get('matador')
@@ -21,6 +23,10 @@ with DAG(
     schedule='@once', 
     default_args=default_args
 ) as dag:
+    bash_task = BashOperator(
+        task_id="bash_task",
+        bash_command='echo {{ var.value.matador }} > /opt/airflow/configfile/config.json'
+    )
     KubernetesPodOperator(
         namespace='dev',
         image="hello-world",
@@ -29,7 +35,7 @@ with DAG(
         task_id="task-one",
         in_cluster=False,  # if set to true, will look in the cluster, if false, looks for file
         cluster_context="docker-desktop",  # is ignored when in_cluster is set to True
-        config_file=matador,
+        config_file='/opt/airflow/configfile',
         is_delete_operator_pod=True,
         get_logs=True,
     )
