@@ -2,8 +2,6 @@ import urllib3
 import requests,psycopg2
 from airflow.models import Variable
 
-
-
 db = Variable.get("db")
 dbPassword = Variable.get("pass")
 user = Variable.get("user")
@@ -19,7 +17,7 @@ def getDefinition(host, user, password):
 def writeData(definition):
     conn = psycopg2.connect(host=db, database="devops_template", user=user, password=dbPassword, port="5432")
     imlec = conn.cursor()
-    insertQuery = 'INSERT INTO definitions definitionsRabbit VALUES ('+definition+');'
+    insertQuery = 'INSERT INTO definitions (definitionsRabbit) VALUES ('+definition+');'
     imlec.execute(insertQuery)
     conn.commit()
 
