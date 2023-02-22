@@ -27,7 +27,7 @@ with DAG(
         task_id="bash_task",
         bash_command='echo {{ var.value.matador }} > /opt/airflow/configfile/config.json'
     )
-    KubernetesPodOperator(
+    task_one = KubernetesPodOperator(
         namespace='dev',
         image="hello-world",
         labels={"test": "mete"},
@@ -39,3 +39,4 @@ with DAG(
         is_delete_operator_pod=True,
         get_logs=True,
     )
+    bash_task >> task_one
