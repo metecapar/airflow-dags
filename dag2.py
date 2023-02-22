@@ -6,7 +6,6 @@ from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import Kubernete
 from airflow.operators.bash import BashOperator
 
 
-
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
