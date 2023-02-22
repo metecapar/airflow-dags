@@ -16,30 +16,20 @@ default_args = {
     'retry_delay': timedelta(minutes=5),
 }
 
-namespace = conf.get('kubernetes', 'NAMESPACE')
-# This will detect the default namespace locally and read the
-# environment namespace when deployed to Astronomer.
-if namespace =='default':
-    config_file = matador
-    in_cluster = False
-else:
-    in_cluster = True
-    config_file = None
-
 with DAG(
     dag_id='example_kubernetes_pod', 
     schedule='@once', 
     default_args=default_args
 ) as dag:
     KubernetesPodOperator(
-        namespace=namespace,
+        namespace='dev',
         image="hello-world",
-        labels={"<pod-label>": "<label-name>"},
+        labels={"test": "mete"},
         name="airflow-test-pod",
         task_id="task-one",
-        in_cluster=in_cluster,  # if set to true, will look in the cluster, if false, looks for file
+        in_cluster=False,  # if set to true, will look in the cluster, if false, looks for file
         cluster_context="docker-desktop",  # is ignored when in_cluster is set to True
-        config_file=config_file,
+        config_file=matador,
         is_delete_operator_pod=True,
         get_logs=True,
     )
