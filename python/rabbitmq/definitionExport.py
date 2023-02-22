@@ -19,7 +19,7 @@ def getDefinition(host, user, password):
 def writeData(definition):
     conn = psycopg2.connect(host=db, database="devops_template", user=user, password=dbPassword, port="5432")
     imlec = conn.cursor()
-    insertQuery = 'INSERT INTO definitions (definitions) VALUES ('+definition+');'
+    insertQuery = 'INSERT INTO definitions definitionsRabbit VALUES ('+definition+');'
     imlec.execute(insertQuery)
     conn.commit()
 
