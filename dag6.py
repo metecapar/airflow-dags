@@ -22,9 +22,7 @@ with dag:
         name='kubernetes-task',
         namespace='default',
         image='hello-world',
-        cmds=['python', '-c'],
         kubernetes_conn_id='matador',
-        arguments=['print("Hello, Kubernetes!")'],
         is_delete_operator_pod=False,
         get_logs=True,
     )
