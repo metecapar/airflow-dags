@@ -24,8 +24,9 @@ with dag:
         namespace='default',
         image='python:3.8',
         cmds=['python', '-c'],
+        kubernetes_conn_id='matador',
         arguments=['print("Hello, Kubernetes!")'],
-        is_delete_operator_pod=True,
+        is_delete_operator_pod=False,
         get_logs=True,
     )
 
@@ -34,7 +35,7 @@ with dag:
         image='docker/whalesay:latest',
         command='echo "Hello, Docker!"',
         api_version='auto',
-        auto_remove=True,
+        auto_remove=False,
     )
 
     kubernetes_task >> docker_task
