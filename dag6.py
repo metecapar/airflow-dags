@@ -14,15 +14,14 @@ default_args = {
 dag = DAG(
     'kubernetes_docker_example',
     default_args=default_args,
-    schedule_interval=timedelta(days=1),
+    schedule='@once'
 )
-
 with dag:
     kubernetes_task = KubernetesPodOperator(
         task_id='kubernetes_task',
         name='kubernetes-task',
         namespace='default',
-        image='python:3.8',
+        image='python:3.7',
         cmds=['python', '-c'],
         kubernetes_conn_id='matador',
         arguments=['print("Hello, Kubernetes!")'],
@@ -32,7 +31,7 @@ with dag:
 
     docker_task = DockerOperator(
         task_id='docker_task',
-        image='docker/whalesay:latest',
+        image='whalesay',
         command='echo "Hello, Docker!"',
         api_version='auto',
         auto_remove=False,
