@@ -21,7 +21,7 @@ with dag:
         task_id='kubernetes_task',
         name='kubernetes-task',
         namespace='default',
-        image='python:3.7',
+        image='hello-world',
         cmds=['python', '-c'],
         kubernetes_conn_id='matador',
         arguments=['print("Hello, Kubernetes!")'],
