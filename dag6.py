@@ -29,7 +29,7 @@ with dag:
 
     docker_task = DockerOperator(
         task_id='docker_task',
-        image='whalesay',
+        image='hello-world',
         command='echo "Hello, Docker!"',
         api_version='auto',
         auto_remove=False,
