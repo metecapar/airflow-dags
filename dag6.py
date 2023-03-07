@@ -23,7 +23,7 @@ with dag:
         name='kubernetes-task',
         namespace='default',
         image="platform360.azurecr.io/pythonscripts:elasticchecker",
-        image_pull_secrets=[k8s.V1LocalObjectReference("acr-azure")],
+        image_pull_secrets=[k8s.V1LocalObjectReference("acr-airflow")],
         kubernetes_conn_id='matador',
         is_delete_operator_pod=False,
         get_logs=True,
