@@ -22,7 +22,7 @@ with dag:
         task_id='kubernetes_task',
         name='kubernetes-task',
         namespace='rabbit',
-        image="platform360.azurecr.io/p360-rabbitmq-monitoring:v1",
+        image="hello-world",
         image_pull_secrets=[k8s.V1LocalObjectReference("acr")],
         kubernetes_conn_id='matador',
         is_delete_operator_pod=False,
