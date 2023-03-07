@@ -1,5 +1,6 @@
 from airflow import DAG
 from airflow.providers.docker.operators.docker import DockerOperator
+from kubernetes.client import models as k8s
 from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
 from datetime import datetime, timedelta
 
@@ -21,18 +22,10 @@ with dag:
         task_id='kubernetes_task',
         name='kubernetes-task',
         namespace='default',
-        image='hello-world',
+        image="platform360.azurecr.io/pythonscripts:elasticchecker",
+        image_pull_secrets=[k8s.V1LocalObjectReference("docker-registery-airflow")],
         kubernetes_conn_id='matador',
         is_delete_operator_pod=False,
         get_logs=True,
     )
-
-    docker_task = DockerOperator(
-        task_id='docker_task',
-        image='hello-world',
-        command='echo "Hello, Docker!"',
-        api_version='auto',
-        auto_remove=False,
-    )
-
-    kubernetes_task >> docker_task
+    kubernetes_task
