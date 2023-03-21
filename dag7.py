@@ -27,7 +27,11 @@ with dag:
         image="platform360.azurecr.io/ford-queue-checker:1.0.0",
         image_pull_secrets=[k8s.V1LocalObjectReference("acr")],
         kubernetes_conn_id='fo',
+        cmds=['python'],
+        arguments=['ford-queue-checker.py']
         is_delete_operator_pod=False,
         get_logs=True,
+        dag=dag,
+        get_logs=True
     )
     kubernetes_task
