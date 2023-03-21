@@ -15,6 +15,7 @@ default_args = {
 dag = DAG(
     'kubernetes_queue_check',
     default_args=default_args,
+    concurrency=1,
     schedule_interval='*/5 * * * *'
 )
 with dag:
