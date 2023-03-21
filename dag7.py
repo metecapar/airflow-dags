@@ -32,6 +32,5 @@ with dag:
         is_delete_operator_pod=False,
         get_logs=True,
         dag=dag,
-        get_logs=True
     )
     kubernetes_task
