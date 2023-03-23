@@ -24,7 +24,7 @@ with dag:
         task_id='kubernetes_task',
         name='kubernetes-fo-task',
         namespace='dev',
-        image="platform360.azurecr.io/ford-queue-checker:3.0.0",
+        image="platform360.azurecr.io/ford-queue-checker:4.0.0",
         image_pull_secrets=[k8s.V1LocalObjectReference("acr")],
         kubernetes_conn_id='fo',
         cmds=['python'],
