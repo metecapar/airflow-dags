@@ -13,7 +13,7 @@ default_args = {
 }
 
 dag = DAG(
-    'kubernetes_queue_check',
+    'kubernetes_report_check',
     default_args=default_args,
     concurrency=1,
     max_active_runs=1,
@@ -24,11 +24,11 @@ with dag:
         task_id='kubernetes_task',
         name='kubernetes-fo-task',
         namespace='dev',
-        image="platform360.azurecr.io/ford-queue-checker:2.0.0",
+        image="platform360.azurecr.io/ford-bottleneck:1.0.0",
         image_pull_secrets=[k8s.V1LocalObjectReference("acr")],
         kubernetes_conn_id='fo',
         cmds=['python'],
-        arguments=['Ford.Monitoring/ford-queue-checker.py'],
+        arguments=['Ford.Monitoring/ford-bottleneck.py'],
         is_delete_operator_pod=False,
         get_logs=True,
         dag=dag,
