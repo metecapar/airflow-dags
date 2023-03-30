@@ -13,7 +13,7 @@ default_args = {
 }
 
 dag = DAG(
-    'kubernetes_report_check',
+    'kubernetes_mqtt_check',
     default_args=default_args,
     concurrency=1,
     max_active_runs=1,
