@@ -24,7 +24,7 @@ with dag:
         task_id='kubernetes_task',
         name='kubernetes-fo-task',
         namespace='dev',
-        image="platform360.azurecr.io/ford-mqtt-checker:1.0.1",
+        image="platform360.azurecr.io/ford-mqtt-checker:1.0.3",
         image_pull_secrets=[k8s.V1LocalObjectReference("acr")],
         kubernetes_conn_id='marathon',
         cmds=['python'],
